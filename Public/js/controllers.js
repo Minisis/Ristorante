@@ -1,26 +1,27 @@
 (function (){
+
+	'use strict';
+
 	angular.module('loggin.controllers', [])
 
 	.controller('logginController', ['$scope', '$rootScope', 'logginService', '$location', function($scope, $rootScope, logginService, $location){
 		$rootScope.title = 'Storantes | Loggin';
+		var user = {};
 
 		$scope.clikForm = function (){
-			var user = {
+	 		user = {
 				email : $scope.mail,
 				password : $scope.password
-			}
+			};
 
 			if (!user.email){
 				$scope.merror = 'Escribe un correo';
-				console.log('Escribe un correo');
-				console.log('No entro');
 			}
 			else {
-				$scope.merror = 'Datos correctos ya estamos casi listos! para ir a la api!';
 				logginService.manualstrategy(user)
 					.then(function (result){
 						if (result){
-							$location.url('settings/dashboard')
+							$location.path('settings/dashboard');
 						}
 						console.log('user was created: ' + result);
 					});
